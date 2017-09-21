@@ -7,12 +7,14 @@ namespace movietheater
     {
         public bool runFood = true;
         Theater CurrentTheater;
+        List<IPurchasable> purchasedFoods = new List<IPurchasable>();
+
 
         public FoodMenu(Theater theater)
         {
             CurrentTheater = theater;
         }
-        public void Run()
+        public List<IPurchasable> Run()
         {
             do
             {
@@ -38,12 +40,16 @@ namespace movietheater
                             int Quantity;
                             Food SelectedFood = CurrentTheater.FoodList[i];
                             System.Console.WriteLine($"\nHow many {SelectedFood.Name}(s) would you like?\n");
-                            if(Int32.TryParse(Console.ReadLine(), out Quantity))
+                            if (Int32.TryParse(Console.ReadLine(), out Quantity))
                             {
-                                SelectedFood.Purchase(Quantity);
+                                if (SelectedFood.Purchase(Quantity))
+                                {
+                                    SelectedFood.Quantity = Quantity;
+                                    purchasedFoods.Add((IPurchasable)SelectedFood);
+                                }
                                 System.Console.WriteLine("\nPress ENTER to continue");
                                 Console.ReadLine();
-                                return;
+                                runFood = false;
                             }
                             else
                             {
@@ -62,7 +68,9 @@ namespace movietheater
 
             } while (runFood);
 
-        }
+            return purchasedFoods;
 
+
+        }
     }
 }

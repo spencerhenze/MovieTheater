@@ -24,9 +24,9 @@ namespace movietheater
                 Console.Clear();
                 System.Console.WriteLine($"Showtime menu for {CurrentMovie.Title}");
 
-                int dictIndex = 1;
                 Dictionary<int, Ticket> listItems = new Dictionary<int, Ticket>(); // string will be the time and the ticket will have all of the other data including purchasable
 
+                int dictIndex = 1;
                 foreach(KeyValuePair<string, Ticket> showtime in CurrentMovie.Showtimes)
                 {
                     listItems.Add(dictIndex, showtime.Value);

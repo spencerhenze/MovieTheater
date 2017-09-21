@@ -6,6 +6,8 @@ namespace movietheater
     public class Ticket : IPurchasable
     {
         Movie Movie;
+        public string Name { get; set; }
+        public int Quantity { get; set; }
 
         string Time;
 
